@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+<fieldset>
+	<legend>Comentários</legend>
+	<% if @post.comments.present? %>
+	<ul>
+		<% @post.comments.each do |comment| -%>
+			<li>
+				<strong>name:</strong> <%= comment.name -%><br>
+				<strong>email:</strong> <%= comment.email -%><br>
+				<strong>message:</strong> <%= comment.message -%>
+				<hr>
+			</li>
+		<% end -%>
+	</ul>
+	<% end -%>
+	<hr>
+	<legend>Faça seu comentário</legend>
+	<%= form_for @post.comments.new, url: comentar_path do |f| %>
+		<%= f.hidden_field :post_id %>
+		<div>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+		</div>
+
+		<div>
+			<%= f.label :email %>
+			<%= f.text_field :email %>
+		</div>
+
+		<div>
+			<%= f.label :message %>
+			<%= f.text_area :message %>
+		</div>
+		<%= submit_tag 'Enviar' -%>
+
+	<% end %>
+</fieldset>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
